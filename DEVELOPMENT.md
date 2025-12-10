@@ -2,7 +2,7 @@
 
 **Project:** Toto - GitHub for Flashcards
 **Started:** December 10, 2025
-**Status:** Phase 1 - Foundation & Setup
+**Status:** Phase 2 - Authentication
 
 ---
 
@@ -10,55 +10,55 @@
 
 This document tracks the development progress of Toto MVP across 10 phases. Check off tasks as they are completed.
 
-**Progress:** 0/10 Phases Complete
+**Progress:** 1/10 Phases Complete ✓
 
 ---
 
-## Phase 1: Foundation & Setup
+## Phase 1: Foundation & Setup ✅
 
-**Status:** Not Started
+**Status:** Complete (December 10, 2025)
 **Goal:** Initialize the project with all necessary tooling and infrastructure
 
 ### Tasks
 
-- [ ] Initialize Next.js 14 project with TypeScript
-  - [ ] Run `npx create-next-app@latest` with App Router
-  - [ ] Configure TypeScript settings
-  - [ ] Set up project structure (`/app`, `/components`, `/lib`, `/types`)
-- [ ] Configure Tailwind CSS
-  - [ ] Install and configure Tailwind
-  - [ ] Set up custom theme (Studio Ghibli inspired colors)
-  - [ ] Create base styles
-- [ ] Set up Supabase project
-  - [ ] Create Supabase account/project
-  - [ ] Get API keys and connection strings
-  - [ ] Install Supabase client libraries
-- [ ] Create database schema
-  - [ ] Create `users` table
-  - [ ] Create `decks` table
-  - [ ] Create `cards` table
-  - [ ] Create `reviews` table
-  - [ ] Create `stars` table
-  - [ ] Create `tags` table
-  - [ ] Create `deck_tags` junction table
-  - [ ] Set up foreign key relationships
-  - [ ] Create indexes for performance
-- [ ] Environment configuration
-  - [ ] Create `.env.local` file
-  - [ ] Add Supabase credentials
-  - [ ] Add placeholder for Claude API key
-  - [ ] Add placeholder for Upstash Redis
-  - [ ] Create `.env.example` for reference
-- [ ] Set up git repository
-  - [ ] Initialize git
-  - [ ] Create `.gitignore`
-  - [ ] Make initial commit
+- [x] Initialize Next.js 14 project with TypeScript
+  - [x] Run `npx create-next-app@latest` with App Router
+  - [x] Configure TypeScript settings
+  - [x] Set up project structure (`/app`, `/components`, `/lib`, `/types`)
+- [x] Configure Tailwind CSS
+  - [x] Install and configure Tailwind
+  - [x] Set up custom theme (Studio Ghibli inspired colors)
+  - [x] Create base styles
+- [x] Set up Supabase project
+  - [x] Create Supabase account/project
+  - [x] Get API keys and connection strings
+  - [x] Install Supabase client libraries
+- [x] Create database schema
+  - [x] Create `users` table
+  - [x] Create `decks` table
+  - [x] Create `cards` table
+  - [x] Create `reviews` table
+  - [x] Create `stars` table
+  - [x] Create `tags` table
+  - [x] Create `deck_tags` junction table
+  - [x] Set up foreign key relationships
+  - [x] Create indexes for performance
+- [x] Environment configuration
+  - [x] Create `.env.local` file
+  - [x] Add Supabase credentials
+  - [x] Add placeholder for Claude API key
+  - [x] Add placeholder for Upstash Redis
+  - [x] Create `.env.example` for reference
+- [x] Set up git repository
+  - [x] Initialize git
+  - [x] Create `.gitignore`
+  - [x] Make initial commit
 
 ---
 
 ## Phase 2: Authentication
 
-**Status:** Not Started
+**Status:** In Progress
 **Goal:** Implement user authentication with email/password and OAuth
 
 ### Tasks
@@ -68,9 +68,9 @@ This document tracks the development progress of Toto MVP across 10 phases. Chec
   - [ ] Enable Google OAuth provider
   - [ ] Enable GitHub OAuth provider
   - [ ] Configure redirect URLs
-- [ ] Create auth utilities
-  - [ ] Create `lib/supabase/client.ts` (client-side)
-  - [ ] Create `lib/supabase/server.ts` (server-side)
+- [x] Create auth utilities
+  - [x] Create `lib/supabase/client.ts` (client-side)
+  - [x] Create `lib/supabase/server.ts` (server-side)
   - [ ] Create auth helper functions
   - [ ] Create middleware for protected routes
 - [ ] Build auth API routes
@@ -516,7 +516,50 @@ This document tracks the development progress of Toto MVP across 10 phases. Chec
 
 ## Notes & Decisions
 
-*Track important decisions and learnings here*
+### December 10, 2025 - Phase 1 Complete + Bonus Features
+
+**Phase 1 Status:** ✅ Complete
+- All foundational infrastructure is in place
+- Git repository initialized with initial commit
+- Project structure follows Next.js 14 App Router best practices
+- Custom Ghibli-inspired theme implemented in Tailwind
+
+**Bonus Features Already Implemented:**
+Beyond Phase 1, several advanced features from later phases have been pre-built:
+
+**From Phase 4 (Wikipedia → Flashcards):**
+- ✅ Wikipedia API integration (`utils/wikipedia.ts`)
+  - URL validation and title extraction
+  - Content fetching with truncation support
+- ✅ Claude AI integration (`lib/ai/generate.ts`)
+  - Using claude-sonnet-4-20250514 model
+  - Prompt engineering for flashcard generation
+  - JSON parsing and validation
+- ✅ Generation API endpoint (`app/api/generate/wikipedia/route.ts`)
+- ✅ Generation UI page (`app/generate/page.tsx`)
+  - Card preview and editing interface
+
+**From Phase 5 (Study Mode):**
+- ✅ Complete SM-2 algorithm implementation (`utils/sm2.ts`)
+  - Rating system (0-3: Again, Hard, Good, Easy)
+  - Ease factor calculations
+  - Interval scheduling
+  - Initial review state creation
+- ✅ Flashcard UI components (`components/study/flashcard.tsx`)
+  - Flip animations
+  - Rating buttons
+  - Progress tracking
+  - Session statistics
+
+**Database Architecture Notes:**
+- Row Level Security (RLS) policies implemented on all tables
+- PostgreSQL functions for auto-incrementing star counts
+- Cascading deletes configured for proper data integrity
+- Indexes added on frequently queried columns for performance
+
+**Next Steps:**
+- Complete Phase 2 (Authentication) - Auth pages, OAuth setup, session management
+- Then move to Phase 3 (Core Database & API) - Build out CRUD endpoints
 
 ---
 
@@ -530,4 +573,4 @@ This document tracks the development progress of Toto MVP across 10 phases. Chec
 
 ---
 
-**Last Updated:** December 10, 2025
+**Last Updated:** December 10, 2025 - Phase 1 Complete ✅
