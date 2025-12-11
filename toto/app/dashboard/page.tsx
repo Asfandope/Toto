@@ -53,9 +53,12 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="card bg-white p-6">
+          <Link
+            href="/study/due"
+            className="card bg-white p-6 hover:shadow-lg transition-shadow group"
+          >
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                 <Star className="w-6 h-6 text-blue-600" />
               </div>
               <div>
@@ -63,7 +66,7 @@ export default async function DashboardPage() {
                 <p className="text-2xl font-bold text-ink-900">{dueCount || 0}</p>
               </div>
             </div>
-          </div>
+          </Link>
 
           <Link
             href="/generate"
