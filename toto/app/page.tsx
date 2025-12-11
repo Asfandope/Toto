@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Sparkles, GitFork, Users } from "lucide-react";
+import AuthButton from "@/components/auth/AuthButton";
 
 export default function HomePage() {
   const [url, setUrl] = useState("");
@@ -42,12 +43,7 @@ export default function HomePage() {
             <a href="/explore" className="btn-ghost">
               Explore
             </a>
-            <a href="/login" className="btn-ghost">
-              Log in
-            </a>
-            <a href="/signup" className="btn-primary">
-              Sign up
-            </a>
+            <AuthButton />
           </nav>
         </div>
       </header>

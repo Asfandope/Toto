@@ -11,6 +11,8 @@ import {
   Plus,
   Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 import type { GeneratedCard } from "@/types";
 
 interface GenerationResult {
@@ -23,8 +25,10 @@ export default function GeneratePage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const url = searchParams.get("url");
+  const { isAuthenticated, openAuthModal } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<GenerationResult | null>(null);
   const [cards, setCards] = useState<GeneratedCard[]>([]);
@@ -98,10 +102,58 @@ export default function GeneratePage() {
   };
 
   const handlePublish = async () => {
-    // TODO: Implement deck saving
-    // For now, redirect to signup if not logged in
-    alert("Sign up to save your deck!");
-    router.push("/signup");
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      toast.info("Please log in to save your deck");
+      openAuthModal("signup");
+      return;
+    }
+
+    // Validate cards
+    if (cards.length === 0) {
+      toast.error("Please add at least one card");
+      return;
+    }
+
+    // Check for empty cards
+    const hasEmptyCards = cards.some(
+      (card) => !card.front.trim() || !card.back.trim()
+    );
+    if (hasEmptyCards) {
+      toast.error("Please fill in all cards or delete empty ones");
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+
+      // Create deck
+      const response = await fetch("/api/decks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: result?.title || "Untitled Deck",
+          description: `Generated from Wikipedia`,
+          source_url: result?.source_url,
+          is_public: false,
+          cards: cards,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to save deck");
+      }
+
+      toast.success("Deck saved successfully!");
+      router.push("/dashboard");
+    } catch (err) {
+      console.error("Save error:", err);
+      toast.error(err instanceof Error ? err.message : "Failed to save deck");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   if (isLoading) {
@@ -149,8 +201,12 @@ export default function GeneratePage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
           </button>
-          <button onClick={handlePublish} className="btn-primary">
-            Publish Deck
+          <button
+            onClick={handlePublish}
+            disabled={isSaving}
+            className="btn-primary"
+          >
+            {isSaving ? "Saving..." : "Save Deck"}
           </button>
         </div>
       </header>
